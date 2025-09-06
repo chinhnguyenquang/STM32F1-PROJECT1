@@ -1,0 +1,9 @@
+../LIB/src/Modbus_Slave.cpp:17:1:Modbus_Slave::Modbus_Slave()	16	static
+../LIB/src/Modbus_Slave.cpp:28:6:void Modbus_Slave::USARTx_PutS_Size(USART_TypeDef*, uint8_t*, uint8_t)	32	static
+../LIB/src/Modbus_Slave.cpp:39:10:uint16_t CRC16(uint8_t*, uint16_t)	24	static
+../LIB/src/Modbus_Slave.cpp:58:6:void Modbus_Slave::sendData(uint8_t*, int)	32	static
+../LIB/src/Modbus_Slave.cpp:71:6:void Modbus_Slave::modbusException(uint8_t)	16	static
+../LIB/src/Modbus_Slave.cpp:84:9:uint8_t Modbus_Slave::Check_Buffer(USART_TypeDef*)	24	static
+../LIB/src/Modbus_Slave.cpp:104:9:uint8_t Modbus_Slave::readInputRegs_FC4()	32	static
+../LIB/src/Modbus_Slave.cpp:145:9:uint8_t Modbus_Slave::readHoldingRegs()	16	static
+../LIB/src/Modbus_Slave.cpp:151:9:uint8_t Modbus_Slave::WriteIDRegs_FC6()	24	static

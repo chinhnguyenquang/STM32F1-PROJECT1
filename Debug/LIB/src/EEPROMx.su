@@ -1,0 +1,3 @@
+../LIB/src/EEPROMx.c:9:10:Flash_Read	16	static
+../LIB/src/EEPROMx.c:16:19:Flash_ErasePage	40	static
+../LIB/src/EEPROMx.c:43:19:Flash_Write	40	static

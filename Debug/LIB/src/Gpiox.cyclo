@@ -1,0 +1,6 @@
+C:/Users/CHINH/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/core_cm3.h:1499:26:__NVIC_GetPriorityGrouping	1
+C:/Users/CHINH/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/core_cm3.h:1511:22:__NVIC_EnableIRQ	2
+C:/Users/CHINH/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/core_cm3.h:1639:22:__NVIC_SetPriority	2
+C:/Users/CHINH/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/core_cm3.h:1686:26:NVIC_EncodePriority	2
+../LIB/src/Gpiox.c:3:6:GPIOx_Init	7
+../LIB/src/Gpiox.c:22:6:NVICx_Init	1

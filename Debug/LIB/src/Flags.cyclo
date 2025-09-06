@@ -1,0 +1,2 @@
+../LIB/src/Flags.cpp:11:6:void Flags::TurnONFlags()	5
+../LIB/src/Flags.cpp:58:6:void Flags::TurnOFFFlags()	1
