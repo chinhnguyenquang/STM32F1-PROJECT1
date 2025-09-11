@@ -16,8 +16,12 @@ extern "C" {
 
 #include "stm32f1xx.h"
 #include <main.h>
+#include "Switch.h"
 
-void Get_Tempe_Press(float *temperature, float *pressure);
+
+
+void p_sensor_range();
+uint8_t Get_Tempe_Press(float *temperature, float *pressure);
 
 
 #ifdef __cplusplus

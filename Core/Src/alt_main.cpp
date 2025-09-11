@@ -15,9 +15,8 @@
 #include "gpiox.h"
 #include "Flags.h"
 #include "SM9541.h"
-///////////////////////
-uint8_t Rxx[50]={0};
-//Declare class
+#include "Switch.h"
+//                                     CLASS
 HT1621 _Ht621b;
 Modbus_Slave _Modbus_Slave;
 Flags _Flags;
@@ -25,16 +24,13 @@ Flags _Flags;
 extern uint8_t RxBuf_DMA[10];
 extern UART_HandleTypeDef huart1;
 extern DMA_HandleTypeDef hdma_usart1_rx;
-uint8_t status=0;
-uint8_t status4=0;
-
 extern ADC_HandleTypeDef hadc1;
 
-///Status LCD Ht1621b////////////
-enum Status_Display{
+///								LCD HT1621
+typedef enum {
 	NORMAL=1,
 	SLAVE_ID=0
-};
+}Status_Display;
 
 Status_Display Status_stm32=NORMAL;
 bool Status_initial_LCD=true;
@@ -42,9 +38,20 @@ bool Status_initial_LCD=true;
 /////////////////////////////////
 
 
-//// Declare variable SM9541
+////                             SM9541
 float temperature_Sm9541=0,pressure_Sm9541=0;
+float temperature_Sm9541_cur=0,pressure_Sm9541_cur=0;
 uint8_t data[4];
+
+//////////                      ADC
+uint32_t data_adc=0;
+///////////////////////////////////
+
+////                          Switch
+
+
+
+
 
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
@@ -84,15 +91,15 @@ uint16_t id=0;
 
 
 
-/////         THUC THI TAC VU THEO FLAG //////////
-#define ADD_Flash_Slave_ID 0x0801FCF0
+
+
 void Tacvu_HIENTHI(void){
 	id=_Modbus_Slave.Slave_id_to_Eeprom;
 	if (Status_stm32==NORMAL){
 		_Ht621b.clearAll();
 		_Ht621b.displayOn();
-		_Ht621b.Write_Float_Linex(temperature_Sm9541,2);
-		_Ht621b.Write_Float_Linex(pressure_Sm9541,1);
+		_Ht621b.Write_Float_Linex(temperature_Sm9541_cur,2);
+		_Ht621b.Write_Float_Linex(pressure_Sm9541_cur,1);
 
 	}
 	else {
@@ -104,26 +111,42 @@ void Tacvu_HIENTHI(void){
 }
 
 
-
-
+extern Switch_Range Status_Switch_Cur;
+/////         THUC THI TAC VU THEO FLAG //////////
 void ThucThiTacVuTheoFlag(){
 	if (_Flags.Flag.t500ms){
 
 	}
     if (_Flags.Flag.t1s) {
-    	Get_Tempe_Press(&temperature_Sm9541, &pressure_Sm9541);
-    	Tacvu_HIENTHI();
-    }
-    if (_Flags.Flag.t4s){
+    	Status_Current_Switch(); //UPDATE CURRENT SWITCH
+    	if (Status_Switch_Cur.response==1){
+    		p_sensor_range();
+        	if (Get_Tempe_Press(&temperature_Sm9541, &pressure_Sm9541)){
+        		temperature_Sm9541_cur=temperature_Sm9541,
+        		pressure_Sm9541_cur=pressure_Sm9541;
+        	}
+        	Tacvu_HIENTHI();
+    	}
 
     }
+    if (_Flags.Flag.t4s){
+    	if (Status_Switch_Cur.response==4){
+    		p_sensor_range();
+        	if (Get_Tempe_Press(&temperature_Sm9541, &pressure_Sm9541)){
+        		temperature_Sm9541_cur=temperature_Sm9541,
+        		pressure_Sm9541_cur=pressure_Sm9541;
+        	}
+        	Tacvu_HIENTHI();
+    	}
+    }
     if (_Flags.Flag.t10s){
-    	//TacvuFlag_10s();
+
     }
 }
 
-uint32_t value=0;
-///////////           Luu id slave vao epprom  /////////////////
+
+#define ADD_Flash_Slave_ID 0x0801FCF0
+///////////          LUU ID VAO FLASH (EEPROM)  /////////////////
 void Check_Slaveid(){
 	id=_Modbus_Slave.Slave_id;
 	if(_Modbus_Slave.Slave_id!=_Modbus_Slave.Slave_id_to_Eeprom){
@@ -131,10 +154,6 @@ void Check_Slaveid(){
 		Flash_Write(FLASH_TYPEPROGRAM_WORD,ADD_Flash_Slave_ID,_Modbus_Slave.Slave_id_to_Eeprom);
 		_Modbus_Slave.Slave_id=_Modbus_Slave.Slave_id_to_Eeprom;
 	}
-	 HAL_ADC_Start(&hadc1);
-	 HAL_ADC_PollForConversion(&hadc1, 100);
-	 value = HAL_ADC_GetValue(&hadc1);
-	 HAL_ADC_Stop(&hadc1);
 
 }
 
@@ -149,16 +168,16 @@ void alt_main()
 
 	initial_UART_DMA();
 	 // _Ht621b.All_on();
+	HAL_ADC_Start_DMA(&hadc1, &data_adc, 1);
 
-
-
+	Status_Current_Switch();
 	while (1)
 	{
 		/* Super loop */
 		_Flags.TurnONFlags();
 		if (Status_initial_LCD){Status_initial_LCD=false;Tacvu_HIENTHI();}
 		Check_Slaveid();
-		Tacvu_HIENTHI();
+		ThucThiTacVuTheoFlag();
 		_Flags.TurnOFFFlags();
 
 	}

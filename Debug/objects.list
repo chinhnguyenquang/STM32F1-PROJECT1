@@ -26,4 +26,5 @@
 "./LIB/src/Gpiox.o"
 "./LIB/src/Modbus_Slave.o"
 "./LIB/src/SM9541.o"
+"./LIB/src/Switch.o"
 "./LIB/src/ht621b.o"

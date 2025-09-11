@@ -12,12 +12,14 @@ CPP_SRCS += \
 C_SRCS += \
 ../LIB/src/EEPROMx.c \
 ../LIB/src/Gpiox.c \
-../LIB/src/SM9541.c 
+../LIB/src/SM9541.c \
+../LIB/src/Switch.c 
 
 C_DEPS += \
 ./LIB/src/EEPROMx.d \
 ./LIB/src/Gpiox.d \
-./LIB/src/SM9541.d 
+./LIB/src/SM9541.d \
+./LIB/src/Switch.d 
 
 OBJS += \
 ./LIB/src/EEPROMx.o \
@@ -25,6 +27,7 @@ OBJS += \
 ./LIB/src/Gpiox.o \
 ./LIB/src/Modbus_Slave.o \
 ./LIB/src/SM9541.o \
+./LIB/src/Switch.o \
 ./LIB/src/ht621b.o 
 
 CPP_DEPS += \
@@ -42,7 +45,7 @@ LIB/src/%.o LIB/src/%.su LIB/src/%.cyclo: ../LIB/src/%.cpp LIB/src/subdir.mk
 clean: clean-LIB-2f-src
 
 clean-LIB-2f-src:
-	-$(RM) ./LIB/src/EEPROMx.cyclo ./LIB/src/EEPROMx.d ./LIB/src/EEPROMx.o ./LIB/src/EEPROMx.su ./LIB/src/Flags.cyclo ./LIB/src/Flags.d ./LIB/src/Flags.o ./LIB/src/Flags.su ./LIB/src/Gpiox.cyclo ./LIB/src/Gpiox.d ./LIB/src/Gpiox.o ./LIB/src/Gpiox.su ./LIB/src/Modbus_Slave.cyclo ./LIB/src/Modbus_Slave.d ./LIB/src/Modbus_Slave.o ./LIB/src/Modbus_Slave.su ./LIB/src/SM9541.cyclo ./LIB/src/SM9541.d ./LIB/src/SM9541.o ./LIB/src/SM9541.su ./LIB/src/ht621b.cyclo ./LIB/src/ht621b.d ./LIB/src/ht621b.o ./LIB/src/ht621b.su
+	-$(RM) ./LIB/src/EEPROMx.cyclo ./LIB/src/EEPROMx.d ./LIB/src/EEPROMx.o ./LIB/src/EEPROMx.su ./LIB/src/Flags.cyclo ./LIB/src/Flags.d ./LIB/src/Flags.o ./LIB/src/Flags.su ./LIB/src/Gpiox.cyclo ./LIB/src/Gpiox.d ./LIB/src/Gpiox.o ./LIB/src/Gpiox.su ./LIB/src/Modbus_Slave.cyclo ./LIB/src/Modbus_Slave.d ./LIB/src/Modbus_Slave.o ./LIB/src/Modbus_Slave.su ./LIB/src/SM9541.cyclo ./LIB/src/SM9541.d ./LIB/src/SM9541.o ./LIB/src/SM9541.su ./LIB/src/Switch.cyclo ./LIB/src/Switch.d ./LIB/src/Switch.o ./LIB/src/Switch.su ./LIB/src/ht621b.cyclo ./LIB/src/ht621b.d ./LIB/src/ht621b.o ./LIB/src/ht621b.su
 
 .PHONY: clean-LIB-2f-src
 

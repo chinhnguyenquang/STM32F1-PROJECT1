@@ -33,7 +33,10 @@ Core/Src/alt_main.o: ../Core/Src/alt_main.cpp ../Core/Inc/alt_main.h \
  D:/TEST_STM32/MTEE/Project_v5/LIB/inc/EEPROMx.h \
  D:/TEST_STM32/MTEE/Project_v5/LIB/inc/gpiox.h \
  D:/TEST_STM32/MTEE/Project_v5/LIB/inc/Flags.h \
- D:/TEST_STM32/MTEE/Project_v5/LIB/inc/SM9541.h
+ D:/TEST_STM32/MTEE/Project_v5/LIB/inc/SM9541.h \
+ D:/TEST_STM32/MTEE/Project_v5/LIB/inc/Switch.h \
+ D:/TEST_STM32/MTEE/Project_v5/LIB/inc/SM9541.h \
+ D:/TEST_STM32/MTEE/Project_v5/LIB/inc/Switch.h
 ../Core/Inc/alt_main.h:
 ../Core/Inc/main.h:
 C:/Users/CHINH/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
@@ -71,3 +74,6 @@ D:/TEST_STM32/MTEE/Project_v5/LIB/inc/EEPROMx.h:
 D:/TEST_STM32/MTEE/Project_v5/LIB/inc/gpiox.h:
 D:/TEST_STM32/MTEE/Project_v5/LIB/inc/Flags.h:
 D:/TEST_STM32/MTEE/Project_v5/LIB/inc/SM9541.h:
+D:/TEST_STM32/MTEE/Project_v5/LIB/inc/Switch.h:
+D:/TEST_STM32/MTEE/Project_v5/LIB/inc/SM9541.h:
+D:/TEST_STM32/MTEE/Project_v5/LIB/inc/Switch.h:

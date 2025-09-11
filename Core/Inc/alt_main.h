@@ -15,7 +15,7 @@ extern "C"
 
 #include "main.h"
 
-
+extern uint32_t data_adc;
 
 void alt_main();
 

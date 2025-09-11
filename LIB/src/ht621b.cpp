@@ -63,24 +63,24 @@ void HT1621::wrCmd(uint8_t cmd){
 }
 
 
-void HT1621::All_on(){
-		uint8_t addr=0;
-//		for (uint8_t i=0;i<=0x32;++i){
-//			  wrBytes(addr,0xff);
-//		      addr+=2;
-//		      HAL_Delay(1000);
-//		      clearAll();
-//		}
-
-		// wrBytes(0x0E,0xff);
-		uint8_t tmp[8]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
-		 		for (uint8_t i=0;i<8;++i){
-		 			  wrBytes(16,tmp[i]);
-		 		      //addr+=2;
-		 		      HAL_Delay(1000);
-		 		      clearAll();
-		 		}
-}
+//void HT1621::All_on(){
+//		uint8_t addr=0;
+////		for (uint8_t i=0;i<=0x32;++i){
+////			  wrBytes(addr,0xff);
+////		      addr+=2;
+////		      HAL_Delay(1000);
+////		      clearAll();
+////		}
+//
+//		// wrBytes(0x0E,0xff);
+//		uint8_t tmp[8]={0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80};
+//		 		for (uint8_t i=0;i<8;++i){
+//		 			  wrBytes(16,tmp[i]);
+//		 		      //addr+=2;
+//		 		      HAL_Delay(1000);
+//		 		      clearAll();
+//		 		}
+//}
 
 void HT1621::sendBits(uint8_t sdata,uint8_t size){
 	uint8_t i;
