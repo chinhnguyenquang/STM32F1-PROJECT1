@@ -102,8 +102,7 @@ void HT1621::displayOn()
 	wrBytes(0x30,0x8C);
 	wrBytes(0x0A,0x01);
 	wrBytes(0x0E,0x80);
-	//wrBytes(0x18,0x80);
-	//wrBytes(0x06,0x10);
+
 
 
 }
@@ -140,6 +139,7 @@ void HT1621::ValuesConstructor(){
   this->HT1621_data.map1[7]= 0x4E;  //'7'
   this->HT1621_data.map1[8]= 0xEF;  //'8'
   this->HT1621_data.map1[9]= 0xCF;  //'9'
+  this->HT1621_data.map1[10]=0x00;
 
   this->HT1621_data.map[0]= 0x20;  //'-'
   this->HT1621_data.map[1]= 0x00;  //' '
@@ -153,7 +153,7 @@ void HT1621::ValuesConstructor(){
 }
 //convert -> blacking -> refresh.
 
-void HT1621::Convert(uint8_t a,uint8_t line,uint8_t tmp){
+void HT1621::Convert(uint16_t a,uint8_t line,uint8_t tmp){
 	uint8_t Current_Digit;
 	if ((a > 1000) || (a < 0)) {
 		for (uint8_t i=0;i<5;++i) {
@@ -180,14 +180,15 @@ void HT1621::Write_Float_Linex(float a,uint8_t line){
 		for (uint8_t i=0;i<4;++i) wrBytes(h2[i],0x00);
 	}
 
-	uint8_t x=(a-(uint8_t)a)*10;
+
+	uint16_t x=(a-(uint16_t)a)*10;
 	if (line==1){
 		this->HT1621_data.digit[0]=this->HT1621_data.map1[x];
 	}
 	else {
 		this->HT1621_data.digit[0]=this->HT1621_data.map2[x];
 	}
-	Convert((uint8_t)a,line,1);
+	Convert((uint16_t)a,line,1);
 	for(uint8_t i=0;this->HT1621_data.digit[i]!=0x00;++i){
 		if (i==1) {
 			if (line==1){
@@ -208,12 +209,53 @@ void HT1621::Write_Float_Linex(float a,uint8_t line){
 }
 
 
+void HT1621::Write_INT_Linex(float a,uint8_t line){
+	uint8_t h1[4]={0x08,0x06,0x04,0x02};
+	uint8_t h2[4]={0x1A,0x18,0x16,0x14};
+	for (uint8_t i=0;i<6;++i) this->HT1621_data.digit[i]=0x00;
+	if (line ==1 ) {
+		for (uint8_t i=0;i<4;++i) wrBytes(h1[i],0x00);
+	}
+	else {
+		for (uint8_t i=0;i<4;++i) wrBytes(h2[i],0x00);
+	}
+	float tmp=a;
+	if (a <0) a=-a;
+
+	if ((uint16_t)a == 0){
+		if (line==1){
+			wrBytes(h1[0],this->HT1621_data.map1[0]);
+		}
+		else {
+			wrBytes(h2[0],this->HT1621_data.map2[0]);
+		}
+		return;
+	}
+
+	Convert((uint16_t)a,line,0);
+	for(uint8_t i=0;this->HT1621_data.digit[i]!=0x00;++i){
+		if (line==1){
+			wrBytes(h1[i],this->HT1621_data.digit[i]);
+		}
+		else {
+			wrBytes(h2[i],this->HT1621_data.digit[i]);
+		}
+
+	}
+
+	if (tmp <0){
+		if (a < 10) wrBytes(h1[1],0x40);
+		else if (a <100) wrBytes(h1[2],0x40);
+		else if (a <1000) wrBytes(h1[3],0x40);
+	}
+}
+
 void HT1621::Write_Id(uint8_t a){
 	uint8_t h1[4]={0x08,0x06,0x04,0x02};
 	uint8_t h2[4]={0x1A,0x18,0x16,0x14};
 	for (uint8_t i=0;i<6;++i) this->HT1621_data.digit[i]=0x00;
-	for (uint8_t i=0;i<4;++i) wrBytes(h1[i],0x00);
-	for (uint8_t i=0;i<4;++i) wrBytes(h2[i],0x00);
+	//for (uint8_t i=0;i<4;++i) wrBytes(h1[i],0x00);
+	//for (uint8_t i=0;i<4;++i) wrBytes(h2[i],0x00);
 	/////phu
 
 	wrBytes(16,0x0C);

@@ -19,24 +19,12 @@ extern "C" {
 #include "SM9541.h"
 #include "main.h"
 
-typedef enum
-{
-    SM9541_RANGE_100PA=0,
-    SM9541_RANGE_250PA=1,
-    SM9541_RANGE_500PA=2,
-    SM9541_RANGE_750PA=3,
-    SM9541_RANGE_1000PA=4,
-    SM9541_RANGE_1500PA=5,
-    SM9541_RANGE_2000PA=6,
-    SM9541_RANGE_2500PA=7
-} sm9541_range_t;
 
-typedef struct {
-	uint8_t response;
-	sm9541_range_t range_sm9541_cur;
-}Switch_Range;
 
-extern Switch_Range Status_Switch_Cur;
+
+extern uint8_t Response_Switch;
+extern uint16_t Value_Switch_Pre;
+
 
 void Status_Current_Switch();
 

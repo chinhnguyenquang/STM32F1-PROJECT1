@@ -3,8 +3,9 @@
 ../LIB/src/ht621b.cpp:58:6:void HT1621::wrCmd(uint8_t)	16	static
 ../LIB/src/ht621b.cpp:85:6:void HT1621::sendBits(uint8_t, uint8_t)	24	static
 ../LIB/src/ht621b.cpp:99:6:void HT1621::displayOn()	16	static
-../LIB/src/ht621b.cpp:112:6:void HT1621::clearAll()	24	static
-../LIB/src/ht621b.cpp:120:6:void HT1621::ValuesConstructor()	16	static
-../LIB/src/ht621b.cpp:156:6:void HT1621::Convert(uint8_t, uint8_t, uint8_t)	24	static
+../LIB/src/ht621b.cpp:111:6:void HT1621::clearAll()	24	static
+../LIB/src/ht621b.cpp:119:6:void HT1621::ValuesConstructor()	16	static
+../LIB/src/ht621b.cpp:156:6:void HT1621::Convert(uint16_t, uint8_t, uint8_t)	24	static
 ../LIB/src/ht621b.cpp:172:6:void HT1621::Write_Float_Linex(float, uint8_t)	40	static
-../LIB/src/ht621b.cpp:211:6:void HT1621::Write_Id(uint8_t)	32	static
+../LIB/src/ht621b.cpp:212:6:void HT1621::Write_INT_Linex(float, uint8_t)	40	static
+../LIB/src/ht621b.cpp:253:6:void HT1621::Write_Id(uint8_t)	32	static

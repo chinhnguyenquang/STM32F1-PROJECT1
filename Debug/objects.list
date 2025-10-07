@@ -20,6 +20,8 @@
 "./Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_pwr.o"
 "./Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_rcc.o"
 "./Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_rcc_ex.o"
+"./Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_tim.o"
+"./Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_tim_ex.o"
 "./Drivers/STM32F1xx_HAL_Driver/stm32f1xx_hal_uart.o"
 "./LIB/src/EEPROMx.o"
 "./LIB/src/Flags.o"
@@ -28,3 +30,4 @@
 "./LIB/src/SM9541.o"
 "./LIB/src/Switch.o"
 "./LIB/src/ht621b.o"
+"./LIB/src/ui.o"

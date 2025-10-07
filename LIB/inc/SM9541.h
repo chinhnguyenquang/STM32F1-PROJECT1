@@ -20,7 +20,7 @@ extern "C" {
 
 
 
-void p_sensor_range();
+
 uint8_t Get_Tempe_Press(float *temperature, float *pressure);
 
 

@@ -50,6 +50,8 @@ extern DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 

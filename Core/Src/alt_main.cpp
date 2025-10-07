@@ -25,6 +25,7 @@ extern uint8_t RxBuf_DMA[10];
 extern UART_HandleTypeDef huart1;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern ADC_HandleTypeDef hadc1;
+extern TIM_HandleTypeDef htim1;
 
 ///								LCD HT1621
 typedef enum {
@@ -99,7 +100,7 @@ void Tacvu_HIENTHI(void){
 		_Ht621b.clearAll();
 		_Ht621b.displayOn();
 		_Ht621b.Write_Float_Linex(temperature_Sm9541_cur,2);
-		_Ht621b.Write_Float_Linex(pressure_Sm9541_cur,1);
+		_Ht621b.Write_INT_Linex(pressure_Sm9541_cur,1);
 
 	}
 	else {
@@ -110,8 +111,10 @@ void Tacvu_HIENTHI(void){
 	}
 }
 
+// BIEN GIA TRI CUA SWITCH
+extern uint8_t Response_Switch;
+extern uint16_t Value_Switch_Pre;
 
-extern Switch_Range Status_Switch_Cur;
 /////         THUC THI TAC VU THEO FLAG //////////
 void ThucThiTacVuTheoFlag(){
 	if (_Flags.Flag.t500ms){
@@ -119,23 +122,18 @@ void ThucThiTacVuTheoFlag(){
 	}
     if (_Flags.Flag.t1s) {
     	Status_Current_Switch(); //UPDATE CURRENT SWITCH
-    	if (Status_Switch_Cur.response==1){
-    		p_sensor_range();
         	if (Get_Tempe_Press(&temperature_Sm9541, &pressure_Sm9541)){
         		temperature_Sm9541_cur=temperature_Sm9541,
         		pressure_Sm9541_cur=pressure_Sm9541;
-        	}
         	Tacvu_HIENTHI();
     	}
 
     }
     if (_Flags.Flag.t4s){
-    	if (Status_Switch_Cur.response==4){
-    		p_sensor_range();
         	if (Get_Tempe_Press(&temperature_Sm9541, &pressure_Sm9541)){
         		temperature_Sm9541_cur=temperature_Sm9541,
         		pressure_Sm9541_cur=pressure_Sm9541;
-        	}
+
         	Tacvu_HIENTHI();
     	}
     }
@@ -167,6 +165,8 @@ void alt_main()
 	/* Initialization */
 
 	initial_UART_DMA();
+	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
+	__HAL_TIM_SET_COMPARE(&htim1,TIM_CHANNEL_1,399);
 	 // _Ht621b.All_on();
 	HAL_ADC_Start_DMA(&hadc1, &data_adc, 1);
 
@@ -177,6 +177,9 @@ void alt_main()
 		_Flags.TurnONFlags();
 		if (Status_initial_LCD){Status_initial_LCD=false;Tacvu_HIENTHI();}
 		Check_Slaveid();
+		//Tacvu_HIENTHI();
+
+		//        	Tacvu_HIENTHI();
 		ThucThiTacVuTheoFlag();
 		_Flags.TurnOFFFlags();
 
